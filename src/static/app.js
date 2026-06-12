@@ -27,6 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
   function updateTeacherUI() {
     const isTeacher = Boolean(teacherToken);
     signupForm.querySelectorAll("input, select, button").forEach((el) => {
@@ -67,8 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
               <ul class="participants-list">
                 ${details.participants
                   .map(
-                    (email) =>
-                      `<li><span class="participant-email">${email}</span><button class="delete-btn" data-activity="${name}" data-email="${email}" ${!teacherToken ? "disabled" : ""}>Remove</button></li>`
+                    (email) => {
+                      const escapedEmail = escapeHtml(email);
+                      return `<li><span class="participant-email">${escapedEmail}</span><button class="delete-btn" data-activity="${name}" data-email="${escapedEmail}" ${!teacherToken ? "disabled" : ""}>Remove</button></li>`;
+                    }
                   )
                   .join("")}
               </ul>
