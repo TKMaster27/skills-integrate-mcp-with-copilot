@@ -120,7 +120,7 @@ def get_activities():
 @app.post("/auth/login")
 def login(login_request: LoginRequest):
     expected_password = teacher_credentials.get(login_request.username)
-    if not expected_password or expected_password != login_request.password:
+    if not expected_password or not secrets.compare_digest(expected_password, login_request.password):
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     token = secrets.token_urlsafe(24)
