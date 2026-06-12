@@ -1,0 +1,12 @@
+{
+  "teachers": [
+    {
+      "username": "ms_lee",
+      "password": "mathrocks"
+    },
+    {
+      "username": "mr_patel",
+      "password": "science123"
+    }
+  ]
+}
