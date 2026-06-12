@@ -241,6 +241,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initialize app
-  updateTeacherUI();
-  fetchActivities();
+  (async () => {
+    if (teacherToken) {
+      try {
+        const response = await fetch("/auth/me", {
+          headers: {
+            "X-Teacher-Token": teacherToken,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Invalid session");
+        }
+
+        const result = await response.json();
+        teacherUsername = result.username;
+        localStorage.setItem("teacherUsername", teacherUsername);
+      } catch {
+        teacherToken = "";
+        teacherUsername = "";
+        localStorage.removeItem("teacherToken");
+        localStorage.removeItem("teacherUsername");
+      }
+    }
+
+    updateTeacherUI();
+    fetchActivities();
+  })();
 });
