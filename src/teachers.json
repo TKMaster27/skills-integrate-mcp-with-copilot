@@ -1,12 +1,12 @@
 {
   "teachers": [
     {
-      "username": "ms_lee",
-      "password": "mathrocks"
+      "username": "teacher_demo_1",
+      "password": "demo_password_1"
     },
     {
-      "username": "mr_patel",
-      "password": "science123"
+      "username": "teacher_demo_2",
+      "password": "demo_password_2"
     }
   ]
 }
